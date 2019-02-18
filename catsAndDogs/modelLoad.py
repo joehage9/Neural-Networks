@@ -12,13 +12,6 @@ import numpy as np
 import time 
 classifier=load_model("dogAndCatCNNModel.h5")
 
-animalNb=0
-dogNb=0
-catNb=0
-        
-directory = ['dataset/test_set/cats','dataset/training_set/cats','dataset/test_set/dogs','dataset/training_set/dogs']  
-#directory=['dataset/single_prediction/cats']
-
 # To check the class of one pic
 def checkSpecie(path):   
     test_image=image.load_img(path=path, target_size=(128, 128))
@@ -47,9 +40,19 @@ def stopWatch(value):
         print('Time elapsed: '+str(Minutes)+'minutes '+str(Seconds)+' seconds')
     elif Seconds>1:
         print('Time elapsed: '+str(Seconds)+' seconds')
+    elif Seconds<1:
+        print('Time elapsed is less than 1 second')
         
 # Stopwatch starts
 start = time.time() 
+       
+animalNb=0
+dogNb=0
+catNb=0
+# 
+#directory = ['dataset/test_set/cat','dataset/training_set/cat','dataset/test_set/dog','dataset/training_set/dog']  
+directory=['dataset/single_prediction']
+#directory = ['dataset/test_set/cat','dataset/test_set/dog']  
 
 for i in range(len(directory)):
     print('testing '+directory[i]+'...')
@@ -65,6 +68,7 @@ for i in range(len(directory)):
             dogNb+=1
         else:           
             catNb+=1
+            
 print('animal count is : '+str(animalNb)+'\ncat count is: '+str(catNb)+'\ndog count is: '+str(dogNb))
 
 # Stopwatch ends

@@ -62,12 +62,12 @@ training_set = train_datagen.flow_from_directory(training_set_path,
                                                  class_mode='binary')
  
 test_set = test_datagen.flow_from_directory(test_set_path,
-                                            target_size=input_size,
+                                            target_size=input_size, 
                                             batch_size=batch_size,
                                             class_mode='binary')
  
 classifier.fit_generator(training_set,
-                         steps_per_epoch=8000/batch_size,
+                         steps_per_epoch=33000/batch_size,
                          epochs=100,
                          validation_data=test_set,
                          validation_steps=2000/batch_size,
@@ -80,7 +80,8 @@ def saveModel(pathName):
     classifier.save(pathName)
     print('model saved as'+pathName)    
 
-#saveModel('dogAndCatCNNModel.h5')
+saveModel('dogAndCatCNNModel.h5')
+
 
 
 
