@@ -11,7 +11,7 @@ import os
 import numpy as np
 from tqdm import tqdm
 import matplotlib.pyplot as plt
-classifier = load_model("dogAndCatCNNModel.h5")
+classifier = load_model("dogAndCatCNNModel2.h5")
 
 # To check the class of one pic
 def checkSpecie(path):   

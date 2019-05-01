@@ -3,6 +3,11 @@
 
 # Part 1 - Building the CNN
 # Importing the Keras libraries and packages
+import keras
+import tensorflow as tf
+config = tf.ConfigProto(device_count = {'GPU': 1 , 'CPU': 8}) 
+sess = tf.Session(config=config) 
+keras.backend.set_session(sess)
 from keras.layers import Dropout
 from keras.models import Sequential
 from keras.layers import Conv2D
@@ -76,16 +81,18 @@ test_set = test_datagen.flow_from_directory(test_set_path,
                                             batch_size=batch_size,
                                             class_mode='binary')
 
-_steps_per_epoch = math.ceil(total_number_of_training_pic/batch_size)
-_validation_steps = math.ceil(total_number_of_test_pic/batch_size)
-
+_steps_per_epoch = int(math.ceil(total_number_of_training_pic/batch_size))
+_validation_steps = int(math.ceil(total_number_of_test_pic/batch_size))
+_wokrers=9
 classifier.fit_generator(training_set,
                          steps_per_epoch = _steps_per_epoch,
-                         epochs=50,
+                         epochs = 100,
                          validation_data=test_set,
                          validation_steps = _validation_steps,
-                         workers=8,
-                         max_q_size=250)
+                         max_q_size = 50,
+                         workers = _wokrers,
+                         shuffle = True,
+                         verbose=1)
 
 # Saving the model
 
@@ -93,7 +100,6 @@ def saveModel(pathName):
     classifier.save(pathName)
     print('model saved as'+pathName)    
 
-saveModel('dogAndCatCNNModel2.h5')
-
+saveModel('dogAndCatCNNModel.h5')
 
 
